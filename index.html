@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Clcio081m_2.js"></script>
+        <script src="data/Clcio002m_3.js"></script>
+        <script src="data/TipodeSolo081m_4.js"></script>
+        <script src="data/TipodeSolo002m_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-22.420708572956787,-48.519338752907196],[-22.391588498203134,-48.47715758762679]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_Mapa_0');
+        map.getPane('pane_Mapa_0').style.zIndex = 400;
+        var layer_Mapa_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            pane: 'pane_Mapa_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_Mapa_0;
+        map.addLayer(layer_Mapa_0);
+        map.createPane('pane_Satlite_1');
+        map.getPane('pane_Satlite_1').style.zIndex = 401;
+        var layer_Satlite_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_Satlite_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_Satlite_1;
+        map.addLayer(layer_Satlite_1);
+        function pop_Clcio081m_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área</th>\
+                        <td>' + (feature.properties['Área'] !== null ? autolinker.link(feature.properties['Área'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Val. Máx.</th>\
+                        <td>' + (feature.properties['Val. Máx.'] !== null ? autolinker.link(feature.properties['Val. Máx.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Val. Médi</th>\
+                        <td>' + (feature.properties['Val. Médi'] !== null ? autolinker.link(feature.properties['Val. Médi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Desv. Padr</th>\
+                        <td>' + (feature.properties['Desv. Padr'] !== null ? autolinker.link(feature.properties['Desv. Padr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Clcio081m_2_0(feature) {
+            if (feature.properties['Val. Máx.'] >= 7.453200 && feature.properties['Val. Máx.'] <= 16.806480 ) {
+                return {
+                pane: 'pane_Clcio081m_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,212,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Val. Máx.'] >= 16.806480 && feature.properties['Val. Máx.'] <= 26.159760 ) {
+                return {
+                pane: 'pane_Clcio081m_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,217,142,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Val. Máx.'] >= 26.159760 && feature.properties['Val. Máx.'] <= 35.513040 ) {
+                return {
+                pane: 'pane_Clcio081m_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,153,41,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Val. Máx.'] >= 35.513040 && feature.properties['Val. Máx.'] <= 44.866320 ) {
+                return {
+                pane: 'pane_Clcio081m_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(217,95,14,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Val. Máx.'] >= 44.866320 && feature.properties['Val. Máx.'] <= 54.219600 ) {
+                return {
+                pane: 'pane_Clcio081m_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(153,52,4,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Clcio081m_2');
+        map.getPane('pane_Clcio081m_2').style.zIndex = 402;
+        map.getPane('pane_Clcio081m_2').style['mix-blend-mode'] = 'normal';
+        var layer_Clcio081m_2 = new L.geoJson(json_Clcio081m_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Clcio081m_2',
+            layerName: 'layer_Clcio081m_2',
+            pane: 'pane_Clcio081m_2',
+            onEachFeature: pop_Clcio081m_2,
+            style: style_Clcio081m_2_0,
+        });
+        bounds_group.addLayer(layer_Clcio081m_2);
+        map.addLayer(layer_Clcio081m_2);
+        function pop_Clcio002m_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área</th>\
+                        <td>' + (feature.properties['Área'] !== null ? autolinker.link(feature.properties['Área'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Val. Máx.</th>\
+                        <td>' + (feature.properties['Val. Máx.'] !== null ? autolinker.link(feature.properties['Val. Máx.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Val. Médi</th>\
+                        <td>' + (feature.properties['Val. Médi'] !== null ? autolinker.link(feature.properties['Val. Médi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Desv. Padr</th>\
+                        <td>' + (feature.properties['Desv. Padr'] !== null ? autolinker.link(feature.properties['Desv. Padr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Clcio002m_3_0(feature) {
+            if (feature.properties['Val. Máx.'] >= 6.821000 && feature.properties['Val. Máx.'] <= 18.980580 ) {
+                return {
+                pane: 'pane_Clcio002m_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,212,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Val. Máx.'] >= 18.980580 && feature.properties['Val. Máx.'] <= 31.140160 ) {
+                return {
+                pane: 'pane_Clcio002m_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,217,142,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Val. Máx.'] >= 31.140160 && feature.properties['Val. Máx.'] <= 43.299740 ) {
+                return {
+                pane: 'pane_Clcio002m_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,153,41,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Val. Máx.'] >= 43.299740 && feature.properties['Val. Máx.'] <= 55.459320 ) {
+                return {
+                pane: 'pane_Clcio002m_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(217,95,14,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Val. Máx.'] >= 55.459320 && feature.properties['Val. Máx.'] <= 67.618900 ) {
+                return {
+                pane: 'pane_Clcio002m_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(153,52,4,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Clcio002m_3');
+        map.getPane('pane_Clcio002m_3').style.zIndex = 403;
+        map.getPane('pane_Clcio002m_3').style['mix-blend-mode'] = 'normal';
+        var layer_Clcio002m_3 = new L.geoJson(json_Clcio002m_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Clcio002m_3',
+            layerName: 'layer_Clcio002m_3',
+            pane: 'pane_Clcio002m_3',
+            onEachFeature: pop_Clcio002m_3,
+            style: style_Clcio002m_3_0,
+        });
+        bounds_group.addLayer(layer_Clcio002m_3);
+        map.addLayer(layer_Clcio002m_3);
+        function pop_TipodeSolo081m_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área</th>\
+                        <td>' + (feature.properties['Área'] !== null ? autolinker.link(feature.properties['Área'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tam. Máx.</th>\
+                        <td>' + (feature.properties['Tam. Máx.'] !== null ? autolinker.link(feature.properties['Tam. Máx.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tam. Médi</th>\
+                        <td>' + (feature.properties['Tam. Médi'] !== null ? autolinker.link(feature.properties['Tam. Médi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Desv. Padr</th>\
+                        <td>' + (feature.properties['Desv. Padr'] !== null ? autolinker.link(feature.properties['Desv. Padr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TipodeSolo081m_4_0(feature) {
+            if (feature.properties['Tam. Máx.'] >= 0.056400 && feature.properties['Tam. Máx.'] <= 0.056500 ) {
+                return {
+                pane: 'pane_TipodeSolo081m_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(153,52,4,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Tam. Máx.'] >= 0.056500 && feature.properties['Tam. Máx.'] <= 0.140900 ) {
+                return {
+                pane: 'pane_TipodeSolo081m_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(217,95,14,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Tam. Máx.'] >= 0.140900 && feature.properties['Tam. Máx.'] <= 0.225900 ) {
+                return {
+                pane: 'pane_TipodeSolo081m_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,153,41,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Tam. Máx.'] >= 0.225900 && feature.properties['Tam. Máx.'] <= 0.292700 ) {
+                return {
+                pane: 'pane_TipodeSolo081m_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,217,142,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Tam. Máx.'] >= 0.292700 && feature.properties['Tam. Máx.'] <= 0.367100 ) {
+                return {
+                pane: 'pane_TipodeSolo081m_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,212,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_TipodeSolo081m_4');
+        map.getPane('pane_TipodeSolo081m_4').style.zIndex = 404;
+        map.getPane('pane_TipodeSolo081m_4').style['mix-blend-mode'] = 'normal';
+        var layer_TipodeSolo081m_4 = new L.geoJson(json_TipodeSolo081m_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TipodeSolo081m_4',
+            layerName: 'layer_TipodeSolo081m_4',
+            pane: 'pane_TipodeSolo081m_4',
+            onEachFeature: pop_TipodeSolo081m_4,
+            style: style_TipodeSolo081m_4_0,
+        });
+        bounds_group.addLayer(layer_TipodeSolo081m_4);
+        map.addLayer(layer_TipodeSolo081m_4);
+        function pop_TipodeSolo002m_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área</th>\
+                        <td>' + (feature.properties['Área'] !== null ? autolinker.link(feature.properties['Área'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tam. Máx.</th>\
+                        <td>' + (feature.properties['Tam. Máx.'] !== null ? autolinker.link(feature.properties['Tam. Máx.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tam. Médi</th>\
+                        <td>' + (feature.properties['Tam. Médi'] !== null ? autolinker.link(feature.properties['Tam. Médi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Desv. Padr</th>\
+                        <td>' + (feature.properties['Desv. Padr'] !== null ? autolinker.link(feature.properties['Desv. Padr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TipodeSolo002m_5_0(feature) {
+            if (feature.properties['Tam. Máx.'] >= 0.083100 && feature.properties['Tam. Máx.'] <= 0.083200 ) {
+                return {
+                pane: 'pane_TipodeSolo002m_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(153,52,4,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Tam. Máx.'] >= 0.083200 && feature.properties['Tam. Máx.'] <= 0.166300 ) {
+                return {
+                pane: 'pane_TipodeSolo002m_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(217,95,14,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Tam. Máx.'] >= 0.166300 && feature.properties['Tam. Máx.'] <= 0.249500 ) {
+                return {
+                pane: 'pane_TipodeSolo002m_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,153,41,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Tam. Máx.'] >= 0.249500 && feature.properties['Tam. Máx.'] <= 0.295100 ) {
+                return {
+                pane: 'pane_TipodeSolo002m_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,217,142,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Tam. Máx.'] >= 0.295100 && feature.properties['Tam. Máx.'] <= 0.375900 ) {
+                return {
+                pane: 'pane_TipodeSolo002m_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,212,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_TipodeSolo002m_5');
+        map.getPane('pane_TipodeSolo002m_5').style.zIndex = 405;
+        map.getPane('pane_TipodeSolo002m_5').style['mix-blend-mode'] = 'normal';
+        var layer_TipodeSolo002m_5 = new L.geoJson(json_TipodeSolo002m_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TipodeSolo002m_5',
+            layerName: 'layer_TipodeSolo002m_5',
+            pane: 'pane_TipodeSolo002m_5',
+            onEachFeature: pop_TipodeSolo002m_5,
+            style: style_TipodeSolo002m_5_0,
+        });
+        bounds_group.addLayer(layer_TipodeSolo002m_5);
+        map.addLayer(layer_TipodeSolo002m_5);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Tipo de Solo (0 - 0.2 m)<br /><table><tr><td style="text-align: center;"><img src="legend/TipodeSolo002m_5_Argila0.png" /></td><td>Argila </td></tr><tr><td style="text-align: center;"><img src="legend/TipodeSolo002m_5_1.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/TipodeSolo002m_5_Silte2.png" /></td><td>Silte</td></tr><tr><td style="text-align: center;"><img src="legend/TipodeSolo002m_5_3.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/TipodeSolo002m_5_Areia4.png" /></td><td>Areia</td></tr></table>': layer_TipodeSolo002m_5,'Tipo de Solo (0.8 - 1 m)<br /><table><tr><td style="text-align: center;"><img src="legend/TipodeSolo081m_4_Argila0.png" /></td><td>Argila</td></tr><tr><td style="text-align: center;"><img src="legend/TipodeSolo081m_4_1.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/TipodeSolo081m_4_Silte2.png" /></td><td>Silte</td></tr><tr><td style="text-align: center;"><img src="legend/TipodeSolo081m_4_3.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/TipodeSolo081m_4_Areia4.png" /></td><td>Areia</td></tr></table>': layer_TipodeSolo081m_4,'Cálcio (0 - 0.2 m)<br /><table><tr><td style="text-align: center;"><img src="legend/Clcio002m_3_Baixo0.png" /></td><td>Baixo</td></tr><tr><td style="text-align: center;"><img src="legend/Clcio002m_3_1.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Clcio002m_3_Média2.png" /></td><td>Média</td></tr><tr><td style="text-align: center;"><img src="legend/Clcio002m_3_3.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Clcio002m_3_Alta4.png" /></td><td>Alta</td></tr></table>': layer_Clcio002m_3,'Cálcio (0.8 - 1 m)<br /><table><tr><td style="text-align: center;"><img src="legend/Clcio081m_2_Baixa0.png" /></td><td>Baixa</td></tr><tr><td style="text-align: center;"><img src="legend/Clcio081m_2_1.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Clcio081m_2_Média2.png" /></td><td>Média</td></tr><tr><td style="text-align: center;"><img src="legend/Clcio081m_2_3.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Clcio081m_2_Alta4.png" /></td><td>Alta</td></tr></table>': layer_Clcio081m_2,"Satélite": layer_Satlite_1,"Mapa": layer_Mapa_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
